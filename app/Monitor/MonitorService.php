@@ -32,6 +32,7 @@ abstract class MonitorService
          //comment that service was running properly
          //not in that order!
          $this->$attemptState = 'INFO';
+         exit;
       }
       else
       {
@@ -41,6 +42,7 @@ abstract class MonitorService
       //sleep for interval
       //wake with SIGALRM
       //increment attemptNum
+      sleep($this->$interval * 60);
       $this->$attemptNum = 2;
       if(execute())
       {
@@ -48,6 +50,7 @@ abstract class MonitorService
          //INFO status logged
          //exit
          $this->$attemptState = 'INFO';
+         exit;
       }
       else
       {
@@ -57,6 +60,7 @@ abstract class MonitorService
       //sleep for interval
       //wake with SIGALRM
       //increment attemptNUM
+      sleep($this->$interval * 60);
       $this->$attemptNum = 3;
       if(execute())
       {
@@ -64,12 +68,19 @@ abstract class MonitorService
          //INFO status logged
          //exit
          $this->$attemptState = 'INFO';
+         exit;
       }
       else
       {
          //status logged as CRITICAL
          //exit
          $this->$attemptState = 'CRITICAL';
+         exit;
       }
+   }
+
+   public function getAttemptStatus()
+   {
+      return $this->$attemptState;
    }
 }

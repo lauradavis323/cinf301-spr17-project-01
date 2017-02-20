@@ -16,6 +16,7 @@ class PortMonitorService extends MonitorService
       $this->$interval = $i;
       $this->$port = $p;
       $this->$host = 'local host';
+      pcntl_alarm($this->$interval * 60);
    }
 
    public function execute()
@@ -24,10 +25,12 @@ class PortMonitorService extends MonitorService
       if(is_resource($fh))
       {
          fclose($fh);
+         $this->$status = 'RUNNING';
          return true;
       }
       else
       {
+         $this->$status = 'NOT_RESPONDING';
          return false;
       }
    }
