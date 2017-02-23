@@ -17,6 +17,7 @@ class MonitorManager
    private $Monitors = array();
    private $Timers = array();
    private $files;
+   private $pid;
 
    public function __construct()
    {
@@ -87,6 +88,53 @@ class MonitorManager
    }
    public function runNextMonitor()
    {
+      $firstMonitor = $this->$Monitors[0];
+      $passed = $this->getTimePassedFirstMonitor() * 60;
+
+      if($passed >= $firstMonitor->getFrequency())
+      {
+         $this->$pid = pcntl_fork();
+         if($this->$pid == 0)
+         {
+            $firstMonitor->check();
+         }
+         else
+         {
+            $this->$timers[$first->getName()] = time();
+            $this->sortMonitors();
+         }
+         return $this->$pid;
+      }
+      else
+      {
+         return "Not Time";
+      }
+   }
+   public function getTimePassedFirstMonitor()
+   {
+      //in seconds
+      $currentTime = time();
+      $firstMonitor = $this->$Monitors[0];
+      $last = $this->$timers[$firstMonitor->getName()];
+      return ($currentTime - $last);
+   }
+   public function getWaitTime()
+   {
+      $firstMonitor = $this->$monitors[0];
+      $frequency = ($firstMonitor->getFrequency)/60;
+      $passed = $this->getTimePassedFirstMonitor();
+      if($passed < $frequency)
+      {
+         return $frequency - $passed;
+      }
+      else
+      {
+         return 0;
+      }
+   }
+   public function getPid()
+   {
+      return $this->$pid;
    }
 }
 ?>

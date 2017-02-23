@@ -32,12 +32,14 @@ abstract class MonitorService
          //comment that service was running properly
          //not in that order!
          $this->$attemptState = 'INFO';
+         print($attemptState);
          exit;
       }
       else
       {
          //status logged as WARNING
          $this->$attemptState = 'WARNING';
+         print($attemptState);
       }
       //sleep for interval
       //wake with SIGALRM
@@ -50,12 +52,14 @@ abstract class MonitorService
          //INFO status logged
          //exit
          $this->$attemptState = 'INFO';
+         print($attemptState);
          exit;
       }
       else
       {
          //status logged as WARNING
          $this->$attemptState = 'WARNING';
+         print($attemptState);
       }
       //sleep for interval
       //wake with SIGALRM
@@ -68,6 +72,7 @@ abstract class MonitorService
          //INFO status logged
          //exit
          $this->$attemptState = 'INFO';
+         print($attemptState);
          exit;
       }
       else
@@ -75,6 +80,7 @@ abstract class MonitorService
          //status logged as CRITICAL
          //exit
          $this->$attemptState = 'CRITICAL';
+         print($attemptState);
          exit;
       }
    }
