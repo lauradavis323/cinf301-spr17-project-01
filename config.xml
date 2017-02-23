@@ -1,0 +1,22 @@
+<configuration>
+ <services>
+  <service>
+   <class>PortMonitorService</class>
+   <parameters>
+    <name>Port Check</name>
+    <port>22</port>
+    <frequency>10</frequency>
+    <interval>0.5</interval>
+   </parameters>
+  </service>
+  <service>
+   <class>WebMonitorService</class>
+   <parameters>
+    <name>Web Page Check</name>
+    <link>http://www.stetson.edu</link>
+    <frequency>15</frequency>
+    <interval>1</interval>
+   </parameters>
+  </service>
+ </services>
+</configurateion>

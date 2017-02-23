@@ -9,7 +9,7 @@ class PortMonitorService extends MonitorService
 {
    private $port;
 
-   public function _construct($n, $f, $i, $p)
+   public function __construct($n, $p, $f, $i)
    {
       $this->$name = $n;
       $this->$frequency = $f;

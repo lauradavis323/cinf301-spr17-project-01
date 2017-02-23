@@ -1,20 +1,21 @@
 <?php
-namespace App\GeneralUtilites\Utilities
+namespace App\GeneralUtilities\Utilities
 //copied from homework 3:
 //Change as needed
 //figure out what changes are needed
 
-//command line arguments include:
+//command line arguments for project 1 include:
 // -c configfile -o outfile
 class Utilities.php
 {
    private $argsParsed;
    private $argsUnparsed;
 
-   public function _construct()
+   public function __construct()
    {
       $this->$argsUnparsed = $_SERVER['argv'];
       $this->$argsParsed = array();
+      $this->parse();
    }
 
    public function getParsed()

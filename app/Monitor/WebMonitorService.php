@@ -9,7 +9,7 @@ class WebMonitorService extends MonitorService
 {
    private $url;
 
-   public function _construct($n, $f, $i, $u)
+   public function __construct($n, $u, $f, $i)
    {
       $this->$name = $n;
       $this->$frequency = $f;

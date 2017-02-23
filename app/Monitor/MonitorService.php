@@ -83,4 +83,12 @@ abstract class MonitorService
    {
       return $this->$attemptState;
    }
+   public function getName()
+   {
+      return $this->$name;
+   }
+   public function getFrequency()
+   {
+      return $this->$frequency;
+   }
 }
