@@ -1,6 +1,6 @@
 <?php
 namespace App\Monitor;
-require_once _DIR_ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 //model class
 //checks if time for process to spawn child
@@ -9,8 +9,8 @@ require_once _DIR_ . '/../../vendor/autoload.php';
 //use reflection
 
 use App\GeneralUtilities as utility;
-use App\Monitor as port;
-use App\Monitor as web;
+//use App\Monitor\Service as port;
+//use App\Monitor\Service as web;
 
 class MonitorManager
 {
@@ -23,16 +23,16 @@ class MonitorManager
    {
       //$argParse = new utility\ParseArgv();
       //$this->$files = $argParse->getParsed();
-      createMonitors();
-      createTimers();
-      sortMonitors();
+      $this->createMonitors();
+      $this->createTimers();
+      $this->sortMonitors();
    }
 
    private function createMonitors()
    {
       $info = simplexml_load_file('/../../config.xml');
-      $reflectedPortMonitor = new ReflectionClass("port\PortMonitorSevice");
-      $reflectedWebMonitor = new ReflectionClass("web\WebMonitorService");
+      $reflectedPortMonitor = new \ReflectionClass("App\\Monitor\\Service\\PortMonitorSevice");
+      //$reflectedWebMonitor = new \ReflectionClass("web\\WebMonitorService");
       foreach($info->services->children() as $service)
       {
          $parts = $service->children();
@@ -56,7 +56,7 @@ class MonitorManager
    }
    private function createTimers()
    {
-      foreach($monitors as $monitor){
+      foreach($monitors as $monitor)
       {
          $this->$timers[$monitor->getName()] = time();
       }
@@ -84,7 +84,7 @@ class MonitorManager
          {
             return 1;
          }
-      }
+      });
    }
    public function runNextMonitor()
    {

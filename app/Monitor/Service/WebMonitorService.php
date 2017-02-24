@@ -1,5 +1,5 @@
 <?php
-namespace App\Monitor;
+namespace App\Monitor\Service;
 
 //tries to open a link
 //extends abstract class MonitorService

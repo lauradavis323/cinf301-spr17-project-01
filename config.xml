@@ -5,8 +5,8 @@
    <parameters>
     <name>Port Check</name>
     <port>22</port>
-    <frequency>10</frequency>
-    <interval>0.5</interval>
+    <frequency>1</frequency>
+    <interval>0.05</interval>
    </parameters>
   </service>
   <service>
@@ -14,8 +14,8 @@
    <parameters>
     <name>Web Page Check</name>
     <link>http://www.stetson.edu</link>
-    <frequency>15</frequency>
-    <interval>1</interval>
+    <frequency>2</frequency>
+    <interval>0.03</interval>
    </parameters>
   </service>
  </services>

@@ -1,5 +1,5 @@
 <?php
-namespace App\Monitor;
+namespace App\Monitor\Service;
 
 //checks a service by trying to open a socket to the port
 //extends the abstract class: MonitorService
