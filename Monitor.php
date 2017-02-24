@@ -1,16 +1,16 @@
 <?php
 //file that runs the program
 //does the deamonize stuff
-require_once _DIR_ . '/../../vendor/autoload.php';
-use App\GeneralUtilities\Utilities as utility;
-use App\Monitor\MonitorManager as monitorManager;
+require_once __DIR__ . '/vendor/autoload.php';
+use App\GeneralUtilities as utility;
+use App\Monitor as monitorManager;
 
-$argParse = new utility\ParseArgv();
-$files = $argParse->getParsed();
+//$argParse = new utility\Utility();
+//$files = $argParse->getParsed();
 
-fclose(STDOUT);
+//fclose(STDOUT);
 //flcose(STDERR);
-$STDOUT = fopen($files[o]);
+//$STDOUT = fopen('/./out.log', 'wb');
 //$STDERR = fopen(
 
 $manager = new monitorManager\MonitorManager();
@@ -23,12 +23,13 @@ pcntl_signal(SIGCHLD, function($signo){
       $children = array_diff($children, array($pid));
       if(!pcntl_wifexited($status))
       {
-         print("$pid with signo $signo had a problem\n";
+         print("$pid with signo $signo had a problem\n");
       }
    }
-}
+});
 
-while(true)
+$i = 0;
+while($i < 3)
 {
    if($manager->runNextMonitor() === "Not Time")
    {
@@ -38,12 +39,13 @@ while(true)
    {
       $children = $manager->getPid();
    }
+   $i = $i + 1;
 }
 
-fclose(STDOUT);
+//fclose(STDOUT);
 //fclose(STDERR);
 
-$stdout = fopen('/dev/null', 'w');
+//$stdout = fopen('/dev/null', 'w');
 //$stderr = fopen('php://stdout', 'w');
 ?>
 

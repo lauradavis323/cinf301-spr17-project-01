@@ -1,12 +1,12 @@
 <?php
-namespace App\GeneralUtilities\Utilities
+namespace App\GeneralUtilities;
 //copied from homework 3:
 //Change as needed
 //figure out what changes are needed
 
 //command line arguments for project 1 include:
 // -c configfile -o outfile
-class Utilities.php
+class Utility
 {
    private $argsParsed;
    private $argsUnparsed;

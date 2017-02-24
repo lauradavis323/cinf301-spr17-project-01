@@ -1,5 +1,5 @@
 <?php
-namespace App\Monitor\MonitorManager
+namespace App\Monitor;
 require_once _DIR_ . '/../../vendor/autoload.php';
 
 //model class
@@ -8,9 +8,9 @@ require_once _DIR_ . '/../../vendor/autoload.php';
 //objects for PortMonitorService and WebMonitorService
 //use reflection
 
-use App\GeneralUtilities\Utilities as utility;
-use App\Monitor\PortMonitorService as port;
-use App\Monitor\WebMonitorService as web;
+use App\GeneralUtilities as utility;
+use App\Monitor as port;
+use App\Monitor as web;
 
 class MonitorManager
 {
@@ -21,16 +21,16 @@ class MonitorManager
 
    public function __construct()
    {
-      $argParse = new utility\ParseArgv();
-      $this->$files = $argParse->getParsed();
-      createMonitors($files[c]);
+      //$argParse = new utility\ParseArgv();
+      //$this->$files = $argParse->getParsed();
+      createMonitors();
       createTimers();
       sortMonitors();
    }
 
-   private function createMonitors($file)
+   private function createMonitors()
    {
-      $info = simplexml_load_file($file);
+      $info = simplexml_load_file('/../../config.xml');
       $reflectedPortMonitor = new ReflectionClass("port\PortMonitorSevice");
       $reflectedWebMonitor = new ReflectionClass("web\WebMonitorService");
       foreach($info->services->children() as $service)

@@ -1,5 +1,5 @@
 <?php
-namespace App\Monitor\MonitorService;
+namespace App\Monitor;
 
 //abstract class
 //abstract method: execute()
