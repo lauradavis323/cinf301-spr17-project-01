@@ -30,30 +30,37 @@ class MonitorManager
 
    private function createMonitors()
    {
-      $info = simplexml_load_file('config.xml');
-      //$reflectedPortMonitor = new \ReflectionClass("App\Monitor\Service\PortMonitorSevice");
-      //$reflectedWebMonitor = new \ReflectionClass("web\\WebMonitorService");
-      foreach($info->services->children() as $service)
+      if(file_exists(__DIR__ . 'config.xml'))
       {
-         $parts = $service->children();
-         if($parts[0] == "PortMonitorService")
+         $info = simplexml_load_file(__DIR__ . '/../config.xml');
+         //$reflectedPortMonitor = new \ReflectionClass("App\Monitor\Service\PortMonitorSevice");
+         //$reflectedWebMonitor = new \ReflectionClass("web\\WebMonitorService");
+         foreach($info->services->children() as $service)
          {
-            $name = $parts[1]->name;
-            $port = $parts[1]->port;
-            $frequency = $parts[1]->frequency;
-            $interval = $parts[1]->interval;
-            //$this->$monitors = $reflectedPortMonitor->newInstanceArgs(array($name, $port, $frequency, $interval));
-            $this->$monitors = new App\Monitor\Service\PortMonitorService($name, $port, $frequency, $interval);
+            $parts = $service->children();
+            if($parts[0] == "PortMonitorService")
+            {
+               $name = $parts[1]->name;
+               $port = $parts[1]->port;
+               $frequency = $parts[1]->frequency;
+               $interval = $parts[1]->interval;
+               //$this->$monitors = $reflectedPortMonitor->newInstanceArgs(array($name, $port, $frequency, $interval));
+               $this->$monitors = new App\Monitor\Service\PortMonitorService($name, $port, $frequency, $interval);
+            }
+            else
+            {
+               $name = $parts[1]->name;
+               $link = $parts[1]->link;
+               $frequency = $parts[1]->frequency;
+               $interval = $parts[1]->interval;
+               //$this->$monitors = $reflectedWebMonitor->newInstanceArgs(array($name, $link, $frequency, $interval));
+               $this->$monitors = new App\Monitor\Service\WebMonitorService($name, $link, $frequency, $interval);
+            }
          }
-         else
-         {
-            $name = $parts[1]->name;
-            $link = $parts[1]->link;
-            $frequency = $parts[1]->frequency;
-            $interval = $parts[1]->interval;
-            //$this->$monitors = $reflectedWebMonitor->newInstanceArgs(array($name, $link, $frequency, $interval));
-            $this->$monitors = new App\Monitor\Service\WebMonitorService($name, $link, $frequency, $interval);
-         }
+      }
+      else
+      {
+         exit("Failed to open file\n");
       }
    }
    private function createTimers()
