@@ -30,8 +30,8 @@ class MonitorManager
 
    private function createMonitors()
    {
-      $info = simplexml_load_file('/../../config.xml');
-      $reflectedPortMonitor = new \ReflectionClass("App\\Monitor\\Service\\PortMonitorSevice");
+      $info = simplexml_load_file('config.xml');
+      //$reflectedPortMonitor = new \ReflectionClass("App\Monitor\Service\PortMonitorSevice");
       //$reflectedWebMonitor = new \ReflectionClass("web\\WebMonitorService");
       foreach($info->services->children() as $service)
       {
@@ -42,7 +42,8 @@ class MonitorManager
             $port = $parts[1]->port;
             $frequency = $parts[1]->frequency;
             $interval = $parts[1]->interval;
-            $this->$monitors = $reflectedPortMonitor->newInstanceArgs(array($name, $port, $frequency, $interval));
+            //$this->$monitors = $reflectedPortMonitor->newInstanceArgs(array($name, $port, $frequency, $interval));
+            $this->$monitors = new App\Monitor\Service\PortMonitorService($name, $port, $frequency, $interval);
          }
          else
          {
@@ -50,7 +51,8 @@ class MonitorManager
             $link = $parts[1]->link;
             $frequency = $parts[1]->frequency;
             $interval = $parts[1]->interval;
-            $this->$monitors = $reflectedWebMonitor->newInstanceArgs(array($name, $link, $frequency, $interval));
+            //$this->$monitors = $reflectedWebMonitor->newInstanceArgs(array($name, $link, $frequency, $interval));
+            $this->$monitors = new App\Monitor\Service\WebMonitorService($name, $link, $frequency, $interval);
          }
       }
    }
