@@ -30,11 +30,11 @@ class MonitorManager
 
    private function createMonitors()
    {
+      //$reflectedPortMonitor = new \ReflectionClass("App\Monitor\Service\PortMonitorSevice");
+      //$reflectedWebMonitor = new \ReflectionClass("web\\WebMonitorService");
       if(file_exists(__DIR__ . 'config.xml'))
       {
          $info = simplexml_load_file(__DIR__ . '/../config.xml');
-         //$reflectedPortMonitor = new \ReflectionClass("App\Monitor\Service\PortMonitorSevice");
-         //$reflectedWebMonitor = new \ReflectionClass("web\\WebMonitorService");
          foreach($info->services->children() as $service)
          {
             $parts = $service->children();
@@ -60,7 +60,8 @@ class MonitorManager
       }
       else
       {
-         exit("Failed to open file\n");
+         $this->$monitors = new App\Monitor\Service\PortMonitorService('dummy port service', 22, 5, 0.01);
+         $this->$monitors = new App\Monitor\Service\WebMonitorService('dummy web service', 'www.google.com', 3, 0.01);
       }
    }
    private function createTimers()
